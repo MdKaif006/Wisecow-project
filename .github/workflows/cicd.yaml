@@ -26,13 +26,8 @@ jobs:
           docker build -t $IMAGE_NAME:latest .
           docker push $IMAGE_NAME:latest
 
-      # Deploy to Kubernetes
-      - name: Deploy to Minikube / Cluster
+      - name: Deploy to Minikube
         run: |
           kubectl apply -f k8s/
-
-      # Verify rollout
-      - name: Verify Deployment
-        run: |
           kubectl rollout status deployment/wisecow-deployment
-          kubectl get svc wisecow-service -o wide
+          kubectl get svc wisecow-service -o wide
